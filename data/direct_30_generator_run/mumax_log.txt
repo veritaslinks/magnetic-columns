@@ -1,0 +1,167 @@
+//mumax 3.12 [windows_amd64 go1.26.0(gc) CUDA-12.9]
+//commit hash: 6e5c98bb
+//CPU info: Unknown, Error: exec: "wmic": executable file not found in %PATH%
+//GPU info: NVIDIA GeForce RTX 4070(12281MB), CUDA Driver 13.3, cc=8.9, using cc=89 PTX
+//OS  info: Windows OS, Hostname: Gdjsjsv
+//Timestamp: 2026-10-05 15:06:05
+//(c) Arne Vansteenkiste, Dynamat LAB, Ghent University, Belgium
+//This is free software without any warranty. See license.txt
+//********************************************************************//
+//  If you use mumax in any work or publication,                      //
+//  we kindly ask you to cite the references in references.bib        //
+//********************************************************************//
+//output directory: hexcell_C_coupling.out/
+SetGridSize(128, 128, 15)
+SetCellSize(3e-9, 3e-9, 3e-9)
+Msat = 1.0e6
+Aex = 15e-12
+Ku1 = 1.0e6
+AnisU = vector(0, 0, 1)
+alpha = 0.5
+d1 := Cylinder(30e-9, 3e-9).Transl(1.2500e-07, 4.3301e-08, -2.1000e-08)
+d2 := Cylinder(30e-9, 3e-9).Transl(1.0000e-07, 8.6603e-08, -2.1000e-08)
+d3 := Cylinder(30e-9, 3e-9).Transl(2.5000e-08, 1.2990e-07, -2.1000e-08)
+d4 := Cylinder(30e-9, 3e-9).Transl(-2.5000e-08, 1.2990e-07, -2.1000e-08)
+d5 := Cylinder(30e-9, 3e-9).Transl(-1.0000e-07, 8.6603e-08, -2.1000e-08)
+d6 := Cylinder(30e-9, 3e-9).Transl(-1.2500e-07, 4.3301e-08, -2.1000e-08)
+d7 := Cylinder(30e-9, 3e-9).Transl(-1.2500e-07, -4.3301e-08, -2.1000e-08)
+d8 := Cylinder(30e-9, 3e-9).Transl(-1.0000e-07, -8.6603e-08, -2.1000e-08)
+d9 := Cylinder(30e-9, 3e-9).Transl(-2.5000e-08, -1.2990e-07, -2.1000e-08)
+d10 := Cylinder(30e-9, 3e-9).Transl(2.5000e-08, -1.2990e-07, -2.1000e-08)
+d11 := Cylinder(30e-9, 3e-9).Transl(1.0000e-07, -8.6603e-08, -2.1000e-08)
+d12 := Cylinder(30e-9, 3e-9).Transl(1.2500e-07, -4.3301e-08, -2.1000e-08)
+d13 := Cylinder(30e-9, 3e-9).Transl(3.3750e-08, 1.9486e-08, 0.0000e+00)
+d14 := Cylinder(30e-9, 3e-9).Transl(7.4940e-24, 3.8971e-08, 0.0000e+00)
+d15 := Cylinder(30e-9, 3e-9).Transl(-3.3750e-08, 1.9486e-08, 0.0000e+00)
+d16 := Cylinder(30e-9, 3e-9).Transl(-3.3750e-08, -1.9486e-08, 0.0000e+00)
+d17 := Cylinder(30e-9, 3e-9).Transl(-7.4940e-24, -3.8971e-08, 0.0000e+00)
+d18 := Cylinder(30e-9, 3e-9).Transl(3.3750e-08, -1.9486e-08, 0.0000e+00)
+d19 := Cylinder(30e-9, 3e-9).Transl(1.2500e-07, 4.3301e-08, 2.1000e-08)
+d20 := Cylinder(30e-9, 3e-9).Transl(1.0000e-07, 8.6603e-08, 2.1000e-08)
+d21 := Cylinder(30e-9, 3e-9).Transl(2.5000e-08, 1.2990e-07, 2.1000e-08)
+d22 := Cylinder(30e-9, 3e-9).Transl(-2.5000e-08, 1.2990e-07, 2.1000e-08)
+d23 := Cylinder(30e-9, 3e-9).Transl(-1.0000e-07, 8.6603e-08, 2.1000e-08)
+d24 := Cylinder(30e-9, 3e-9).Transl(-1.2500e-07, 4.3301e-08, 2.1000e-08)
+d25 := Cylinder(30e-9, 3e-9).Transl(-1.2500e-07, -4.3301e-08, 2.1000e-08)
+d26 := Cylinder(30e-9, 3e-9).Transl(-1.0000e-07, -8.6603e-08, 2.1000e-08)
+d27 := Cylinder(30e-9, 3e-9).Transl(-2.5000e-08, -1.2990e-07, 2.1000e-08)
+d28 := Cylinder(30e-9, 3e-9).Transl(2.5000e-08, -1.2990e-07, 2.1000e-08)
+d29 := Cylinder(30e-9, 3e-9).Transl(1.0000e-07, -8.6603e-08, 2.1000e-08)
+d30 := Cylinder(30e-9, 3e-9).Transl(1.2500e-07, -4.3301e-08, 2.1000e-08)
+DefRegion(1, d1)
+DefRegion(2, d2)
+DefRegion(3, d3)
+DefRegion(4, d4)
+DefRegion(5, d5)
+DefRegion(6, d6)
+DefRegion(7, d7)
+DefRegion(8, d8)
+DefRegion(9, d9)
+DefRegion(10, d10)
+DefRegion(11, d11)
+DefRegion(12, d12)
+DefRegion(13, d13)
+DefRegion(14, d14)
+DefRegion(15, d15)
+DefRegion(16, d16)
+DefRegion(17, d17)
+DefRegion(18, d18)
+DefRegion(19, d19)
+DefRegion(20, d20)
+DefRegion(21, d21)
+DefRegion(22, d22)
+DefRegion(23, d23)
+DefRegion(24, d24)
+DefRegion(25, d25)
+DefRegion(26, d26)
+DefRegion(27, d27)
+DefRegion(28, d28)
+DefRegion(29, d29)
+DefRegion(30, d30)
+shp := d1
+shp = shp.Add(d2)
+shp = shp.Add(d3)
+shp = shp.Add(d4)
+shp = shp.Add(d5)
+shp = shp.Add(d6)
+shp = shp.Add(d7)
+shp = shp.Add(d8)
+shp = shp.Add(d9)
+shp = shp.Add(d10)
+shp = shp.Add(d11)
+shp = shp.Add(d12)
+shp = shp.Add(d13)
+shp = shp.Add(d14)
+shp = shp.Add(d15)
+shp = shp.Add(d16)
+shp = shp.Add(d17)
+shp = shp.Add(d18)
+shp = shp.Add(d19)
+shp = shp.Add(d20)
+shp = shp.Add(d21)
+shp = shp.Add(d22)
+shp = shp.Add(d23)
+shp = shp.Add(d24)
+shp = shp.Add(d25)
+shp = shp.Add(d26)
+shp = shp.Add(d27)
+shp = shp.Add(d28)
+shp = shp.Add(d29)
+shp = shp.Add(d30)
+print("1/4 shapes defined")
+//1/4 shapes defined
+SetGeom(shp)
+print("2/4 geometry set")
+//2/4 geometry set
+m = Uniform(0, 0, 1)
+print("3/4 starting first relax (the demag kernel is computed here on the first run)")
+//3/4 starting first relax (the demag kernel is computed here on the first run)
+Relax()
+print("4/4 first relax done")
+//4/4 first relax done
+print("baseline: all generators up")
+//baseline: all generators up
+Save(B_demag)
+for g := 1; g <= 30; g++ {
+	m.SetRegion(g, Uniform(0, 0, -1))
+	Relax()
+	print("generator", g, "flipped, mz after relax:", m.Region(g).Average())
+	Save(B_demag)
+	m.SetRegion(g, Uniform(0, 0, 1))
+	Relax()
+}
+//generator 1 flipped, mz after relax: [-0.0008942136516818751 0.0004618718446075142 -0.9999994055017248]
+//generator 2 flipped, mz after relax: [-5.8749201412819606e-05 -0.0009804116208342057 -0.9999993239776998]
+//generator 3 flipped, mz after relax: [-0.000887359056291701 -0.0005492846233935295 -0.9999992274030854]
+//generator 4 flipped, mz after relax: [0.0008873584904248201 -0.000549284434771236 -0.9999992274030854]
+//generator 5 flipped, mz after relax: [5.8748228829118266e-05 -0.0009804118094564993 -0.9999993239776998]
+//generator 6 flipped, mz after relax: [0.0008942128775955793 0.00046187174784672724 -0.999999306418679]
+//generator 7 flipped, mz after relax: [0.0008942129743563663 -0.0004618723767918425 -0.999999306418679]
+//generator 8 flipped, mz after relax: [5.8747934106784536e-05 0.0009804122810122334 -0.9999993239776998]
+//generator 9 flipped, mz after relax: [0.0008873586790471137 0.0005492850006381168 -0.9999992274030854]
+//generator 10 flipped, mz after relax: [-0.0008873592449139945 0.0005492846233935295 -0.9999992274030854]
+//generator 11 flipped, mz after relax: [-5.8748688595958906e-05 0.0009804119980787928 -0.9999993239776998]
+//generator 12 flipped, mz after relax: [-0.0008942138452034492 -0.0004618714091839728 -0.999999306418679]
+//generator 13 flipped, mz after relax: [1.8242780853190774e-09 -3.840520416307108e-10 -1]
+//generator 14 flipped, mz after relax: [2.002373200582497e-09 -7.736455920337449e-12 -1]
+//generator 15 flipped, mz after relax: [1.0640499008212301e-09 6.891053809448222e-10 -1]
+//generator 16 flipped, mz after relax: [1.7469964656189215e-09 -9.238276576477226e-10 -1]
+//generator 17 flipped, mz after relax: [2.5629869782051176e-09 2.0756434349067375e-10 -1]
+//generator 18 flipped, mz after relax: [2.0339796279993035e-09 -4.3267027387783905e-11 -1]
+//generator 19 flipped, mz after relax: [0.0008942150063328927 -0.0004618716994663337 -0.999999306418679]
+//generator 20 flipped, mz after relax: [5.875056892444815e-05 0.0009804121867010866 -0.9999993239776998]
+//generator 21 flipped, mz after relax: [0.0008873599994031688 0.00054928490632697 -0.9999992274030854]
+//generator 22 flipped, mz after relax: [-0.0008873577359356458 0.0005492843404600892 -0.9999992274030854]
+//generator 23 flipped, mz after relax: [-5.8747108884250064e-05 0.0009804123753233802 -0.9999993239776998]
+//generator 24 flipped, mz after relax: [-0.0008942119099877097 -0.0004618720381290881 -0.9999994055017248]
+//generator 25 flipped, mz after relax: [-0.0008942119099877097 0.00046187150594475976 -0.999999306418679]
+//generator 26 flipped, mz after relax: [-5.874719140650351e-05 -0.000980411903767646 -0.9999993239776998]
+//generator 27 flipped, mz after relax: [-0.0008873573586910585 -0.0005492850006381168 -0.9999992274030854]
+//generator 28 flipped, mz after relax: [0.0008873603766477562 -0.00054928490632697 -0.9999992274030854]
+//generator 29 flipped, mz after relax: [5.875019757430765e-05 -0.0009804119980787928 -0.9999993239776998]
+//generator 30 flipped, mz after relax: [0.0008942148128113188 0.00046187189298790767 -0.9999994055017248]
+//********************************************************************//
+//Please cite the following references, relevant for your simulation. //
+//See bibtex file in output folder for justification.                 //
+//********************************************************************//
+//   * Vansteenkiste et al., AIP Adv. 4, 107133 (2014).

@@ -1,0 +1,92 @@
+{
+  "format": "magnetic-honeycomb-settings",
+  "version": 1,
+  "mode": "res",
+  "construction": {
+    "rings": 1,
+    "layers": 6,
+    "layerSpacing": 0.3,
+    "gap": 0.5,
+    "pillars": true,
+    "pillarRadius": 0.3,
+    "generatorStrength": 1,
+    "orientation": "axial",
+    "architecture": "C",
+    "multiAxisSensors": false,
+    "frequencyBands": 1,
+    "longRangeLinks": 64,
+    "sensorLayerRange": 1,
+    "physicsFromMumax": true,
+    "generatorSize": "d30",
+    "sensorScaleMT": 2
+  },
+  "links": {
+    "cornerLogic": true,
+    "transmits": "change",
+    "linkType": "exc",
+    "linkDelay": 3
+  },
+  "cooling": {
+    "cornerCooling": 1.5,
+    "cornerLogicHeat": 1,
+    "pillarSink": true,
+    "pillarCooling": 1.5,
+    "edgeCooling": 0.6,
+    "gapConductivity": 0.3,
+    "thermalFluctuations": true,
+    "thermalThrottle": false,
+    "throttleThreshold": 3
+  },
+  "modes": {
+    "free": {
+      "gain": 1.2,
+      "noise": 0.03,
+      "loopDelay": 2,
+      "heatWeakening": 0.5,
+      "adaptation": 0.8,
+      "heat": 1,
+      "linkStrength": 1.5,
+      "logicSensitivity": 0.7
+    },
+    "res": {
+      "gain": 0.7,
+      "noise": 0.01,
+      "loopDelay": 1,
+      "heatWeakening": 0,
+      "adaptation": 0,
+      "heat": 0.3,
+      "linkStrength": 1.0,
+      "logicSensitivity": 0.5
+    },
+    "mem": {
+      "gain": 1,
+      "noise": 0.05,
+      "loopDelay": 0,
+      "heatWeakening": 0,
+      "adaptation": 0,
+      "heat": 0.3,
+      "linkStrength": 0,
+      "logicSensitivity": 0.7
+    }
+  },
+  "computing": {
+    "task": "pred",
+    "horizon": 5,
+    "inputStrength": 1.2,
+    "readFrom": "all",
+    "stepsPerFrame": 3
+  },
+  "memory": {
+    "stiffness": 3,
+    "damage": 0.3
+  },
+  "signal": {
+    "flashStrength": 3,
+    "flashRadius": 0.8,
+    "flashHeight": 0.5,
+    "flashDuration": 12,
+    "input": "none",
+    "inputAmplitude": 1.5,
+    "inputFrequency": 0.03
+  }
+}

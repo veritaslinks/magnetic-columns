@@ -1,0 +1,10 @@
+// Minimal check that mumax3 itself works on this machine. Should finish in seconds.
+SetGridSize(64, 64, 1)
+SetCellSize(4e-9, 4e-9, 4e-9)
+Msat  = 8e5
+Aex   = 13e-12
+alpha = 0.5
+m = Uniform(1, 0.1, 0)
+print("start: initialisation finished")
+Run(1e-10)
+print("done, average m:", m.Average())
