@@ -26,7 +26,7 @@ What is **not** taken from MuMax3, so you know where the physics ends and the mo
 
 ## Run it
 
-**Online:** enable GitHub Pages for this repository (Settings → Pages → Deploy from branch → `main`, folder `/root`), then open `https://<your-user>.github.io/<repo-name>/`. Pages is free for public repositories.
+**Online:** https://veritaslinks.github.io/magnetic-columns/ (no installation needed).
 
 **Locally:** open `index.html` in a recent desktop browser (Chrome, Edge, Firefox, Safari). The page loads three.js from a CDN, so it needs an internet connection the first time.
 
