@@ -18,7 +18,9 @@
     "sensorLayerRange": 1,
     "physicsFromMumax": true,
     "generatorSize": "d30",
-    "sensorScaleMT": 2
+    "sensorScaleMT": 2,
+    "sensorType": "field",
+    "skyrmionNoise": 0.06
   },
   "links": {
     "cornerLogic": true,

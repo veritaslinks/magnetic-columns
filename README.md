@@ -43,7 +43,7 @@ What is **not** taken from MuMax3, so you know where the physics ends and the mo
 **Panels.**
 
 - *Mode panel* (top of the sidebar): task, training or memory controls and live metrics for the current mode.
-- *Construction*: number of cells (1, 7, 19), layers, layer spacing, gap, pillars and pillar radius, generator strength and orientation, architecture (base, A, B, C), MuMax3 physics, generator size, sensor saturation scale, sensor layer range, frequency bands, long-range links, multi-axis sensors.
+- *Construction*: number of cells (1, 7, 19), layers, layer spacing, gap, pillars and pillar radius, generator strength and orientation, architecture (base, A, B, C), MuMax3 physics, generator size, sensor saturation scale, sensor type (field sensor or the optional skyrmion film), sensor layer range, frequency bands, long-range links, multi-axis sensors.
 - *Dynamics inside cells*: loop gain, noise, loop delay, weakening from heat, adaptation, generator heating, thermal fluctuations.
 - *Links through the corner channels*: on/off, link strength, logic sensitivity, delay, what the logic passes, link type.
 - *Cooling*: cooling at corners, pillars and edge, gap conductance, thermal throttle.
@@ -66,6 +66,12 @@ Each recipe starts from a fresh page or from `settings/best-settings.json`.
 
 **6. Heat.** Raise *Generator heating*, turn *Thermal throttle* on and off, change cooling at corners and pillars, and watch the temperature colouring and the maps.
 
+**7. The optional skyrmion sensor.** In *Construction*, switch *Sensor type* from the field sensor to the skyrmion film at 0 K or at 300 K and train the readout or store patterns again. The response curve and the 300 K noise come from MuMax3. In a quick untuned check the skyrmion sensor kept associative recall high but lowered reservoir performance, because its response is weak at the few-millitesla fields inside a column (see `data/skyrmion/RESULTS.md`).
+
+## Optional alternative sensor: skyrmion film
+
+The architecture needs sensors that read the out-of-plane stray field. The main option is a direct field sensor such as a tunnel junction or a Hall element. As an optional alternative we examined a skyrmion in a thin Pt/Co-like film under the generators (Section 6 of the manuscript). At 0 K the skyrmion follows the summed field of several generators (correlation 0.998) with a built-in nonlinear response. At 300 K a skyrmion confined in an 80 nm disk with a 2 nm magnetic layer survived throughout and read the generator state correctly in 18 of 18 one-nanosecond windows, while thinner or unconfined films did not. Writing skyrmions by current or by gate voltage needed impractical current densities or voltages in our tests; sensing does not require writing, because the network state is held by the generators. The field-coupled architecture does not depend on this option. Full numbers: `data/skyrmion/RESULTS.md`.
+
 ## Reproducing the paper numbers
 
 The benchmarks run the same simulation code headlessly (Node.js 18 or newer):
@@ -87,6 +93,7 @@ Scripts are in `mumax/`. They were run with MuMax3 3.12 on Windows with an NVIDI
 - `hexcell_C_coupling.mx3` + `analyze_coupling.py`: direct simulation of one variant-C cell over three layers and its analysis (coupling in mT, effective number of sources, fall-off exponent, sensor contrast).
 - `run_mumax_study.py`: one command that runs MuMax3 for the three generator sizes, validates superposition against the direct run, evaluates the 144-configuration sweep and writes `study_results/`.
 - `export_field_table.py`: exports the axially symmetric field tables used by the simulation.
+- `skyrmion/`: the optional skyrmion sensor study (Section 6). Copy these files next to `mumax3.exe` together with `study_results` from `run_mumax_study.py`, then run in order: `run_skyrmion_sensor.py` (0 K basics), `run_skyrmion_v2.py` (configurations, 300 K, current writing), `run_skyrmion_v4.py` (confinement and thickness at 300 K), `run_skyrmion_v5.py` (stable material and gate writing). `run_skyrmion_v3.py` is the intermediate gate study. Each script runs everything in one command, resumes after interruption and writes `summary.txt` and `results.json`. Parts at 300 K take one to four hours on an RTX 4070.
 
 Windows PowerShell notes: run executables as `.\mumax3.exe`, pass flags as `'-http=' '-cache=<folder>'` (PowerShell drops empty quotes otherwise), and convert files with
 `Get-ChildItem <dir>\*.ovf | ForEach-Object { .\mumax3-convert.exe -numpy $_.FullName }`.
@@ -96,7 +103,8 @@ Windows PowerShell notes: run executables as `.\mumax3.exe`, pass flags as `'-ht
 - `data/field_tables.json`: B_z(ρ, z) in mT around one generator for 21, 30 and 39 nm diameters, 3 nm grid, ρ and z up to 201 nm.
 - `data/mumax_sweep_144_configurations.csv`: the sweep, one row per configuration.
 - `data/direct_30_generator_run/`: MuMax3 log of the direct run and its analysis.
-- `settings/best-settings.json`: best configuration from the paper, loadable with *Import settings*.
+- `data/skyrmion/`: results of the skyrmion sensor study (`RESULTS.md`, part 5 summary and data).
+- `settings/best-settings.json`: best configuration from the paper, loadable with *Import settings* (field sensor).
 
 ## Limitations
 

@@ -1,0 +1,17 @@
+Skyrmion study, part 5
+
+A. 80 nm disk, 300 K, generator d39 at 45 nm, 3 seeds x 3 ns (read accuracy: 0.5 = guessing, 1.0 = always right)
+  layer 1.2 nm, DMI 3.2: accuracy 0.25 ns 0.681, 1 ns 0.778; contrast 0.088 (min 0.047); wrong-sign seeds 0; alive (worst) 0.983; sensor level 0.295
+  layer 1.2 nm, DMI 3.4: accuracy 0.25 ns 0.75, 1 ns 0.833; contrast 0.082 (min 0.065); wrong-sign seeds 0; alive (worst) 0.98; sensor level 0.002
+  layer 1.2 nm, DMI 3.8: accuracy 0.25 ns 0.667, 1 ns 0.944; contrast 0.067 (min 0.057); wrong-sign seeds 0; alive (worst) 0.987; sensor level -0.421
+  layer 2.0 nm, DMI 3.4: accuracy 0.25 ns 0.875, 1 ns 1.0; contrast 0.103 (min 0.093); wrong-sign seeds 0; alive (worst) 1.0; sensor level 0.086
+  layer 2.0 nm, DMI 3.6: accuracy 0.25 ns 0.806, 1 ns 0.889; contrast 0.1 (min 0.099); wrong-sign seeds 0; alive (worst) 1.0; sensor level -0.19
+  layer 2.0 nm, DMI 3.8: accuracy 0.25 ns 0.792, 1 ns 0.889; contrast 0.079 (min 0.072); wrong-sign seeds 0; alive (worst) 1.0; sensor level -0.411
+  best stable configuration: t2p0_D3p4
+
+B. Gate write/erase at 300 K in t2p0_D3p4, pulse 1 ns, 3 seeds (0% = control)
+   reference sensor levels: skyrmion present 0.072, absent 0.971, threshold 0.522
+  write, generator none: 0%: 0/3; 50%: 0/3 (8.0 V, 3.9253 fJ); 80%: 0/3 (12.8 V, 10.0489 fJ); 95%: 0/3 (15.2 V, 14.1705 fJ)
+  write, generator gen21: 0%: 0/3; 50%: 0/3 (8.0 V, 3.9253 fJ); 80%: 0/3 (12.8 V, 10.0489 fJ); 95%: 0/3 (15.2 V, 14.1705 fJ)
+  erase, generator none: 0%: 3/3; 50%: 3/3 (8.0 V, 3.9253 fJ); 100%: 3/3 (16.0 V, 15.7014 fJ); 150%: 3/3 (24.0 V, 35.3281 fJ)
+  erase, generator gen21: 0%: 3/3; 50%: 3/3 (8.0 V, 3.9253 fJ); 100%: 3/3 (16.0 V, 15.7014 fJ); 150%: 3/3 (24.0 V, 35.3281 fJ)
